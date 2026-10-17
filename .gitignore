@@ -1,0 +1,20 @@
+# Python virtual environment
+.venv/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# Local database
+db.sqlite3
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Test and coverage files
+.coverage
+htmlcov/
+
+# Editor settings
+.vscode/
