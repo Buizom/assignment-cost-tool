@@ -1,0 +1,85 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Cost Estimate</title>
+    <link rel="stylesheet" href="{% static 'estimator/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Assignment Cost Estimate</h1>
+        <p>International assignment cost planning</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Assignment overview</h2>
+            <p><strong>Home country:</strong> Switzerland</p>
+            <p><strong>Host country:</strong> United Kingdom</p>
+            <p><strong>Home location:</strong> Zurich</p>
+            <p><strong>Host location:</strong> London</p>
+            <p><strong>Assignment period:</strong> 6 April 2026 – 5 April 2028</p>
+        </section>
+
+        
+        <section>
+            <h2>Assignment cost estimate</h2>
+            <p>Enter the employee's annual pay and assignment benefits.</p>
+                                
+                {% if error %}
+                    <p role="alert">{{ error }}</p>
+                {% endif %}
+
+                {% if submitted_values %}
+                    <h3>Values received by Django</h3>
+                    <ul>
+                        {% for name, value in submitted_values.items %}
+                            <li>{{ name }}: {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            <form method="post">
+                {% csrf_token %}
+
+                <label for="salary">Annual salary (CHF)</label>
+                <input type="number" id="salary" name="salary"
+                    value="150000" min="0" step="0.01" required>
+
+                <label for="bonus">Annual bonus (CHF)</label>
+                <input type="number" id="bonus" name="bonus"
+                    value="20000" min="0" step="0.01" required>
+
+                <label for="housing">Monthly London housing (£)</label>
+                <input type="number" id="housing" name="housing"
+                    value="3000" min="0" step="0.01" required>
+
+                <label for="relocation">Year 1 relocation allowance (CHF)</label>
+                <input type="number" id="relocation" name="relocation"
+                    value="5000" min="0" step="0.01" required>
+
+                <label for="moving">Year 1 moving costs (£)</label>
+                <input type="number" id="moving" name="moving"
+                    value="6000" min="0" step="0.01" required>
+
+                <label for="temporary">Year 1 temporary housing (£)</label>
+                <input type="number" id="temporary" name="temporary"
+                    value="4000" min="0" step="0.01" required>
+
+                <label for="exchange_rate">Exchange rate (CHF per £1)</label>
+                <input type="number" id="exchange_rate" name="exchange_rate"
+                    value="1.10" min="0.01" step="0.01" required>
+
+                <button type="submit">Calculate estimate</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Immigration guidance</h2>
+            <p>Work permit, business visit, passport requirements and official sources will appear here.</p>
+        </section>
+    </main>
+</body>
+</html>
