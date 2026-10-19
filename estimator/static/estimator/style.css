@@ -74,3 +74,40 @@ button {
 button:hover {
     background: #254d7b;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #dce2ea;
+    text-align: right;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+thead {
+    background: #edf2f8;
+}
+
+tbody tr:last-child {
+    background: #edf2f8;
+    font-weight: bold;
+}
+
+a {
+    color: #174f8a;
+    overflow-wrap: anywhere;
+}
+
+small {
+    color: #526176;
+}

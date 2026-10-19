@@ -9,6 +9,10 @@ from .calculations import (
         calculate_uk_income_tax,
         calculate_grossed_up_uk_tax,
         calculate_annual_housing_cost,
+        calculate_taxable_relocation_cost,
+        calculate_assignment_costs,
+        calculate_class_1a_ni,
+        calculate_employer_class_1_ni,
         )
 
 
@@ -75,4 +79,45 @@ class CalculationTests(SimpleTestCase):
     def test_annual_housing_cost(self):
         result = calculate_annual_housing_cost(Decimal("3000"))
 
-        self.assertEqual(result, Decimal("36000")) 
+        self.assertEqual(result, Decimal("36000"))
+
+    def test_taxable_relocation_cost(self):
+        result = calculate_taxable_relocation_cost(
+            Decimal("6000"),
+            Decimal("4000"),
+        )
+
+        self.assertEqual(result, Decimal("2000")) 
+
+    def test_employer_class_1_ni(self):
+        result = calculate_employer_class_1_ni(Decimal("50000"))
+        self.assertEqual(result, Decimal("6750.00"))
+
+    def test_class_1a_ni(self):
+        result = calculate_class_1a_ni(Decimal("36000"))
+        self.assertEqual(result, Decimal("5400.00"))
+
+    def test_assignment_costs_include_two_years(self):
+        values = {
+            "salary": Decimal("150000"),
+            "bonus": Decimal("20000"),
+            "housing": Decimal("3000"),
+            "relocation": Decimal("5000"),
+            "moving": Decimal("6000"),
+            "temporary": Decimal("4000"),
+            "exchange_rate": Decimal("1.10"),
+            "swiss_tax": Decimal("0"),
+            "swiss_social_security": Decimal("0"),
+        }
+
+        result = calculate_assignment_costs(values)
+
+        self.assertEqual(len(result["years"]), 2)
+        self.assertGreater(
+            result["years"][0]["total_cost_gbp"],
+            result["years"][1]["total_cost_gbp"],
+        )
+        self.assertEqual(
+            result["years"][0]["taxable_relocation_gbp"],
+            Decimal("2000.00"),
+        )
