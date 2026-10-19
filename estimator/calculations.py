@@ -81,3 +81,10 @@ def calculate_grossed_up_uk_tax(income_before_tax):
         tax = updated_tax
 
     raise RuntimeError("The tax gross-up calculation did not converge.")
+
+def calculate_annual_housing_cost(monthly_housing_gbp):
+    """Calculate the annual cost of monthly housing in GBP."""
+    if not monthly_housing_gbp.is_finite() or monthly_housing_gbp < 0:
+        raise ValueError("Monthly housing cost must be non-negative.")
+
+    return monthly_housing_gbp * Decimal("12")

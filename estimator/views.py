@@ -2,10 +2,11 @@
 from decimal import Decimal, InvalidOperation
 
 from django.shortcuts import render
-
+from .calculations import calculate_annual_housing_cost
 
 def home(request):
     submitted_values = None
+    results = None
     error = None
 
     if request.method == "POST":
@@ -32,6 +33,11 @@ def home(request):
 
             if submitted_values["exchange_rate"] <= 0:
                 raise ValueError
+            results = {
+                "annual_housing_gbp": calculate_annual_housing_cost(
+                    submitted_values["housing"]
+                )
+            }
 
         except (InvalidOperation, ValueError):
             submitted_values = None
@@ -43,5 +49,6 @@ def home(request):
         {
             "submitted_values": submitted_values,
             "error": error,
+            "results": results,
         },
     )

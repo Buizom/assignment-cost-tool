@@ -34,12 +34,11 @@
                 {% endif %}
 
                 {% if submitted_values %}
-                    <h3>Values received by Django</h3>
-                    <ul>
-                        {% for name, value in submitted_values.items %}
-                            <li>{{ name }}: {{ value }}</li>
-                        {% endfor %}
-                    </ul>
+                    <h3>Calculation results</h3>
+                    <p>
+                        <strong>Annual London housing cost:</strong>
+                        £{{ results.annual_housing_gbp|floatformat:2 }}
+                    </p>
                 {% endif %}
             <form method="post">
                 {% csrf_token %}

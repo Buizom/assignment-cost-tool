@@ -8,6 +8,7 @@ from .calculations import (
         convert_chf_to_gbp,
         calculate_uk_income_tax,
         calculate_grossed_up_uk_tax,
+        calculate_annual_housing_cost,
         )
 
 
@@ -70,4 +71,8 @@ class CalculationTests(SimpleTestCase):
     def test_gross_up_rejects_negative_income(self):
         with self.assertRaises(ValueError):
             calculate_grossed_up_uk_tax(Decimal("-1"))
-    
+
+    def test_annual_housing_cost(self):
+        result = calculate_annual_housing_cost(Decimal("3000"))
+
+        self.assertEqual(result, Decimal("36000")) 
