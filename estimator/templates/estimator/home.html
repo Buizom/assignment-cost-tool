@@ -5,9 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment Cost Estimate</title>
+    <title>Assignment Cost Estimate | Switzerland to UK</title>
     <link rel="stylesheet" href="{% static 'estimator/style.css' %}">
 </head>
+
 <body>
     <header>
         <h1>Assignment Cost Estimate</h1>
@@ -16,81 +17,140 @@
 
     <main>
         <section>
-            <h2>Assignment overview</h2>
+            <h2>1. Assignment overview</h2>
+
             <p><strong>Home country:</strong> Switzerland</p>
-            <p><strong>Host country:</strong> United Kingdom</p>
             <p><strong>Home location:</strong> Zurich</p>
+            <p><strong>Host country:</strong> United Kingdom</p>
             <p><strong>Host location:</strong> London</p>
             <p><strong>Assignment period:</strong> 6 April 2026 – 5 April 2028</p>
+            <p><strong>Assignment length:</strong> Two full UK tax years</p>
         </section>
 
         <section>
-            <h2>Assignment cost inputs</h2>
-            <p>Enter annual amounts unless the label says monthly or Year 1.</p>
+            <h2>2. Assignment cost inputs</h2>
+            <p>
+                Enter the amounts below. Annual amounts are used unless
+                the label specifies monthly or Year 1.
+            </p>
 
             {% if error %}
-                <p role="alert">{{ error }}</p>
+                <p class="error" role="alert">{{ error }}</p>
             {% endif %}
 
             <form method="post">
                 {% csrf_token %}
 
                 <label for="salary">Annual salary (CHF)</label>
-                <input type="number" id="salary" name="salary"
-                       value="{{ display_values.salary }}" min="0"
-                       step="0.01" required>
+                <input
+                    type="number"
+                    id="salary"
+                    name="salary"
+                    value="{{ display_values.salary }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <label for="bonus">Annual bonus (CHF)</label>
-                <input type="number" id="bonus" name="bonus"
-                       value="{{ display_values.bonus }}" min="0"
-                       step="0.01" required>
+                <input
+                    type="number"
+                    id="bonus"
+                    name="bonus"
+                    value="{{ display_values.bonus }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
-                <label for="housing">Monthly London housing (£)</label>
-                <input type="number" id="housing" name="housing"
-                       value="{{ display_values.housing }}" min="0"
-                       step="0.01" required>
+                <label for="housing">Monthly London housing paid by employer (£)</label>
+                <input
+                    type="number"
+                    id="housing"
+                    name="housing"
+                    value="{{ display_values.housing }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <label for="relocation">Year 1 relocation allowance (CHF)</label>
-                <input type="number" id="relocation" name="relocation"
-                       value="{{ display_values.relocation }}" min="0"
-                       step="0.01" required>
+                <input
+                    type="number"
+                    id="relocation"
+                    name="relocation"
+                    value="{{ display_values.relocation }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <label for="moving">Year 1 moving costs (£)</label>
-                <input type="number" id="moving" name="moving"
-                       value="{{ display_values.moving }}" min="0"
-                       step="0.01" required>
+                <input
+                    type="number"
+                    id="moving"
+                    name="moving"
+                    value="{{ display_values.moving }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
-                <label for="temporary">Year 1 temporary housing (£)</label>
-                <input type="number" id="temporary" name="temporary"
-                       value="{{ display_values.temporary }}" min="0"
-                       step="0.01" required>
+                <label for="temporary">Year 1 temporary accommodation (£)</label>
+                <input
+                    type="number"
+                    id="temporary"
+                    name="temporary"
+                    value="{{ display_values.temporary }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <label for="exchange_rate">Exchange rate (CHF per £1)</label>
-                <input type="number" id="exchange_rate" name="exchange_rate"
-                       value="{{ display_values.exchange_rate }}" min="0.01"
-                       step="0.01" required>
+                <input
+                    type="number"
+                    id="exchange_rate"
+                    name="exchange_rate"
+                    value="{{ display_values.exchange_rate }}"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
 
                 <h3>Swiss home-pay assumptions</h3>
                 <p>
-                    Enter annual hypothetical Swiss income tax and employee
-                    social-security deductions in CHF. Use the official
-                    Swiss calculator and applicable contribution guidance.
-                    Leaving these at zero means the multiple uses gross pay,
-                    not verified net home pay.
+                    Enter estimated annual Swiss income tax and employee
+                    social-security deductions. These are inputs rather than
+                    calculations performed by this tool. Verify them using
+                    appropriate official Swiss guidance.
                 </p>
 
-                <label for="swiss_tax">Annual hypothetical Swiss income tax (CHF)</label>
-                <input type="number" id="swiss_tax" name="swiss_tax"
-                       value="{{ display_values.swiss_tax }}" min="0"
-                       step="0.01" required>
+                <label for="swiss_tax">
+                    Annual hypothetical Swiss income tax (CHF)
+                </label>
+                <input
+                    type="number"
+                    id="swiss_tax"
+                    name="swiss_tax"
+                    value="{{ display_values.swiss_tax }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <label for="swiss_social_security">
                     Annual employee Swiss social-security deductions (CHF)
                 </label>
-                <input type="number" id="swiss_social_security"
-                       name="swiss_social_security"
-                       value="{{ display_values.swiss_social_security }}"
-                       min="0" step="0.01" required>
+                <input
+                    type="number"
+                    id="swiss_social_security"
+                    name="swiss_social_security"
+                    value="{{ display_values.swiss_social_security }}"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
                 <button type="submit">Calculate estimate</button>
             </form>
@@ -98,43 +158,123 @@
 
         {% if results %}
         <section>
-            <h2>Employer cost summary</h2>
-            <p>All cost figures below are in GBP.</p>
+            <h2>3. Employer cost results</h2>
+            <p>
+                All figures in the results tables are in GBP. Amounts are
+                estimates based on the inputs and assumptions described below.
+            </p>
 
-            <div style="overflow-x: auto;">
+            <h3>Section A — Home pay</h3>
+            <p>
+                Home pay estimates the employee's pay after the hypothetical
+                Swiss deductions entered above. It is used as the starting
+                point for the tax gross-up calculation.
+            </p>
+
+            <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Cost item</th>
-                            <th>Year 1</th>
-                            <th>Year 2</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Year 1</th>
+                            <th scope="col">Year 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Annual salary and bonus</td>
+                            <td>£{{ results.years.0.annual_pay_gbp|floatformat:2 }}</td>
+                            <td>£{{ results.years.1.annual_pay_gbp|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Estimated net home pay after hypothetical Swiss deductions</td>
+                            <td>£{{ results.years.0.net_home_pay_gbp|floatformat:2 }}</td>
+                            <td>£{{ results.years.1.net_home_pay_gbp|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Section B — Assignment benefits and expenses</h3>
+            <p>
+                The tax-treatment labels below are indicative. The actual
+                treatment depends on the payment arrangement and applicable
+                tax rules.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Indicative tax treatment</th>
+                            <th scope="col">Year 1</th>
+                            <th scope="col">Year 2</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Salary and bonus</td>
-                            <td>£{{ results.years.0.annual_pay_gbp|floatformat:2 }}</td>
-                            <td>£{{ results.years.1.annual_pay_gbp|floatformat:2 }}</td>
+                            <td>Employment cash pay; taxable</td>
+                            <td>Included in home pay above</td>
+                            <td>Included in home pay above</td>
                         </tr>
                         <tr>
-                            <td>Employer-paid housing</td>
+                            <td>Employer-paid London housing</td>
+                            <td>Taxable benefit in kind (assumed)</td>
                             <td>£{{ results.years.0.housing_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.housing_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
                             <td>Relocation allowance</td>
+                            <td>Taxable cash</td>
                             <td>£{{ results.years.0.relocation_allowance_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.relocation_allowance_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td>Moving costs</td>
+                            <td>Moving costs paid by employer</td>
+                            <td>Potentially non-taxable if qualifying</td>
                             <td>£{{ results.years.0.moving_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.moving_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td>Temporary housing</td>
+                            <td>Temporary accommodation</td>
+                            <td>Potentially non-taxable if qualifying</td>
                             <td>£{{ results.years.0.temporary_housing_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.temporary_housing_gbp|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Relocation expenses potentially above the assumed exemption</td>
+                            <td>Potentially taxable excess</td>
+                            <td>£{{ results.years.0.taxable_relocation_gbp|floatformat:2 }}</td>
+                            <td>£{{ results.years.1.taxable_relocation_gbp|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total assignment benefits included in gross-up income</td>
+                            <td>Housing, taxable cash allowance and assumed taxable relocation excess</td>
+                            <td>£{{ results.years.0.taxable_benefits_gbp|floatformat:2 }}</td>
+                            <td>£{{ results.years.1.taxable_benefits_gbp|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Section C — Host-country tax and employer charges</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Year 1</th>
+                            <th scope="col">Year 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Income before UK tax gross-up</td>
+                            <td>£{{ results.years.0.taxable_income_before_gross_up_gbp|floatformat:2 }}</td>
+                            <td>£{{ results.years.1.taxable_income_before_gross_up_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
                             <td>Grossed-up UK income tax</td>
@@ -142,17 +282,17 @@
                             <td>£{{ results.years.1.grossed_up_tax_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td>Estimated employer Class 1 NI</td>
+                            <td>Employer Class 1 National Insurance</td>
                             <td>£{{ results.years.0.employer_class_1_ni_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.employer_class_1_ni_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td>Estimated employer Class 1A NI</td>
+                            <td>Employer Class 1A National Insurance</td>
                             <td>£{{ results.years.0.employer_class_1a_ni_gbp|floatformat:2 }}</td>
                             <td>£{{ results.years.1.employer_class_1a_ni_gbp|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <th>Total estimated employer cost</th>
+                            <th scope="row">Total estimated employer cost</th>
                             <th>£{{ results.years.0.total_cost_gbp|floatformat:2 }}</th>
                             <th>£{{ results.years.1.total_cost_gbp|floatformat:2 }}</th>
                         </tr>
@@ -160,11 +300,44 @@
                 </table>
             </div>
 
-            <h3>Assignment total</h3>
+            <h3>Section D — Hypothetical home-country deductions</h3>
             <p>
-                <strong>Total estimated cost for both years:</strong>
+                These deductions are used to estimate home pay. They are
+                displayed separately so they are not confused with UK tax
+                or employer National Insurance.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Year 1</th>
+                            <th scope="col">Year 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hypothetical Swiss income tax deduction</td>
+                            <td>-£{{ results.years.0.swiss_tax_deduction_gbp|floatformat:2 }}</td>
+                            <td>-£{{ results.years.1.swiss_tax_deduction_gbp|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Hypothetical Swiss employee social-security deduction</td>
+                            <td>-£{{ results.years.0.swiss_social_security_deduction_gbp|floatformat:2 }}</td>
+                            <td>-£{{ results.years.1.swiss_social_security_deduction_gbp|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Assignment total and cost multiple</h3>
+
+            <p>
+                <strong>Total estimated employer cost for both years:</strong>
                 £{{ results.total_assignment_cost_gbp|floatformat:2 }}
             </p>
+
             <p>
                 <strong>Year 1 cost / estimated net home pay:</strong>
                 {% if results.years.0.cost_multiple != None %}
@@ -173,6 +346,7 @@
                     Not available
                 {% endif %}
             </p>
+
             <p>
                 <strong>Year 2 cost / estimated net home pay:</strong>
                 {% if results.years.1.cost_multiple != None %}
@@ -182,28 +356,39 @@
                 {% endif %}
             </p>
 
-            <h3>Calculation working</h3>
+            <h3>How the gross-up works</h3>
             <p>
-                <strong>Year 1 income before gross-up:</strong>
-                £{{ results.years.0.taxable_income_before_gross_up_gbp|floatformat:2 }}
+                The model starts with estimated net home pay plus taxable
+                assignment benefits. It then estimates UK tax on that amount
+                plus the employer-paid tax. The process repeats until the
+                tax estimate stabilises.
             </p>
+
             <p>
-                <strong>Year 1 relocation costs potentially above exemption:</strong>
-                £{{ results.years.0.taxable_relocation_gbp|floatformat:2 }}
+                <strong>Social-security assumption:</strong>
+                {{ results.social_security_assumption }}
             </p>
+
             <p>
-                <strong>Year 2 income before gross-up:</strong>
-                £{{ results.years.1.taxable_income_before_gross_up_gbp|floatformat:2 }}
+                <strong>Swiss tax limitation:</strong>
+                The Swiss income-tax amount is supplied as an input, not
+                calculated automatically. Verify it using the appropriate
+                official Swiss tax calculator before relying on the estimate.
             </p>
+
             <p>
-                The gross-up repeatedly recalculates UK income tax after adding
-                the employer-paid tax until the amount stabilises.
+                <strong>Relocation limitation:</strong>
+                The model assumes that moving costs and temporary accommodation
+                qualify for the relocation exemption, then estimates the amount
+                above the £8,000 limit. Actual eligibility depends on the
+                expenses and HMRC conditions.
             </p>
         </section>
         {% endif %}
 
         <section>
-            <h2>Tax assumptions and official sources</h2>
+            <h2>4. Tax assumptions and official sources</h2>
+
             <ul>
                 <li>
                     UK income-tax rates and personal allowance:
@@ -213,7 +398,7 @@
                     </a>
                 </li>
                 <li>
-                    Employer and employee National Insurance rates:
+                    National Insurance rates:
                     <a href="https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions"
                        target="_blank" rel="noopener noreferrer">
                         GOV.UK — National Insurance rates
@@ -234,7 +419,7 @@
                     </a>
                 </li>
                 <li>
-                    Swiss tax calculator:
+                    Swiss tax information:
                     <a href="https://www.estv.admin.ch/estv/en/home.html"
                        target="_blank" rel="noopener noreferrer">
                         Swiss Federal Tax Administration
@@ -242,26 +427,141 @@
                 </li>
             </ul>
 
+            <h3>Important limitations</h3>
             <p>
-                <strong>Important limitations:</strong>
-                This is an illustrative estimate, not tax or immigration advice.
-                The Swiss tax and social-security inputs are supplied by the
-                user and are not calculated automatically. The relocation
-                exemption depends on the actual expenses and HMRC conditions.
-                The employer NI figures are simplified estimates. The model
-                does not yet determine which country's social-security system
-                applies, or include every possible employer charge or payroll
-                adjustment. Confirm the applicable treatment before relying
-                on the figures.
+                This tool provides an illustrative estimate, not tax,
+                payroll, legal or immigration advice. UK tax is estimated using
+                2026/27 England income-tax bands for both assignment years.
+                Swiss tax and employee social-security deductions are entered
+                by the user. The model does not automatically determine the
+                applicable social-security system, validate a certificate of
+                coverage, or include every possible payroll adjustment or
+                employer charge. Confirm the facts and applicable treatment
+                before relying on the figures.
             </p>
         </section>
 
         <section>
-            <h2>Immigration guidance</h2>
+            <h2>5. Immigration guidance</h2>
+
+            <h3>Work permission for the two-year assignment</h3>
             <p>
-                We will add the Swiss national's work-permit route, business
-                visitor requirements, passport requirements, process, timing,
-                and fees with official source links in the next stage.
+                The likely route to assess is the Senior or Specialist Worker
+                visa under the Global Business Mobility route. It may allow an
+                eligible employee to work at their employer's UK branch.
+                Eligibility must be confirmed before relying on this route.
+            </p>
+
+            <p>The employer should:</p>
+            <ul>
+                <li>Confirm that the UK entity is an approved sponsor, or apply for a sponsor licence.</li>
+                <li>Check the eligible occupation code, going rate and applicable salary requirement.</li>
+                <li>Assign a Certificate of Sponsorship (CoS) describing the UK role.</li>
+                <li>Confirm that the employee meets the route's eligibility and overseas-employment requirements.</li>
+                <li>Coordinate the application before the employee starts the UK assignment.</li>
+            </ul>
+
+            <p>
+                The published salary threshold is £52,500 or the applicable
+                going rate for the occupation, whichever is higher. The
+                occupation code and qualifying salary need to be checked for
+                the specific role.
+            </p>
+
+            <p>
+                <strong>Official sources:</strong>
+                <a href="https://www.gov.uk/senior-specialist-worker-visa"
+                   target="_blank" rel="noopener noreferrer">Visa overview</a> |
+                <a href="https://www.gov.uk/senior-specialist-worker-visa/eligibility"
+                   target="_blank" rel="noopener noreferrer">Eligibility and salary rules</a> |
+                <a href="https://www.gov.uk/sponsor-licence"
+                   target="_blank" rel="noopener noreferrer">Sponsor licence</a>
+            </p>
+
+            <h3>Indicative visa costs and processing time</h3>
+            <ul>
+                <li>Published application fee for an application from outside the UK for a visa of up to three years: £819 per applicant.</li>
+                <li>The Immigration Health Surcharge is usually £1,035 per year for an adult applicant; the actual amount depends on the visa granted.</li>
+                <li>The Certificate of Sponsorship fee is listed as £525 and is normally paid by the sponsoring employer.</li>
+                <li>An Immigration Skills Charge may also apply to the employer, subject to the sponsor's circumstances and any exemption.</li>
+                <li>Standard processing from outside the UK is usually around three weeks after the required identity checks and application steps, but can vary.</li>
+            </ul>
+
+            <p>
+                These are indicative published charges and timings, not a
+                complete employer budget. Check the official pages before
+                applying.
+            </p>
+
+            <p>
+                <strong>Official sources:</strong>
+                <a href="https://www.gov.uk/senior-specialist-worker-visa/how-much-it-costs"
+                   target="_blank" rel="noopener noreferrer">Visa fees</a> |
+                <a href="https://www.gov.uk/healthcare-immigration-application/how-much-pay"
+                   target="_blank" rel="noopener noreferrer">Healthcare surcharge</a> |
+                <a href="https://www.gov.uk/uk-visa-sponsorship-employers/immigration-skills-charge"
+                   target="_blank" rel="noopener noreferrer">Immigration Skills Charge</a> |
+                <a href="https://www.gov.uk/senior-specialist-worker-visa/apply-from-outside-the-uk"
+                   target="_blank" rel="noopener noreferrer">Application and processing</a>
+            </p>
+
+            <h3>Business visit before the assignment</h3>
+            <p>
+                A Swiss citizen visiting briefly for permitted business
+                activities may need an Electronic Travel Authorisation (ETA),
+                unless an exemption applies. Permitted activities can include
+                business meetings and conferences. An ETA does not authorise
+                ordinary work for a UK company. Check the precise planned
+                activities against the Visitor Rules.
+            </p>
+
+            <p>
+                The published ETA fee is £20. Each traveller who needs an ETA
+                must obtain their own authorisation before travelling.
+            </p>
+
+            <p>
+                <strong>Official sources:</strong>
+                <a href="https://www.gov.uk/guidance/visiting-the-uk-as-an-eu-eea-or-swiss-citizen"
+                   target="_blank" rel="noopener noreferrer">Visiting as a Swiss citizen</a> |
+                <a href="https://www.gov.uk/eta"
+                   target="_blank" rel="noopener noreferrer">ETA requirements and fee</a> |
+                <a href="https://www.gov.uk/eta/what-you-can-cannot-do"
+                   target="_blank" rel="noopener noreferrer">What an ETA permits</a>
+            </p>
+
+            <h3>Passport requirements</h3>
+            <p>
+                The traveller should check the current UK entry requirements
+                and hold the required valid passport and travel authorisation.
+                An ETA is not a substitute for the work visa needed for a
+                long-term assignment.
+            </p>
+
+            <p>
+                <strong>Official source:</strong>
+                <a href="https://www.gov.uk/guidance/visiting-the-uk-as-an-eu-eea-or-swiss-citizen"
+                   target="_blank" rel="noopener noreferrer">
+                    UK entry requirements for Swiss citizens
+                </a>
+            </p>
+
+            <h3>Social security is a separate decision</h3>
+            <p>
+                UK–Swiss social-security coordination rules may affect whether
+                UK National Insurance applies. The answer depends on the
+                employee's circumstances and whether the appropriate
+                certificate of coverage can be obtained. A certificate is not
+                immigration permission and does not remove the need to establish
+                the correct visa route.
+            </p>
+
+            <p>
+                <strong>Official source:</strong>
+                <a href="https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland"
+                   target="_blank" rel="noopener noreferrer">
+                    UK guidance for workers arriving from Switzerland
+                </a>
             </p>
         </section>
     </main>

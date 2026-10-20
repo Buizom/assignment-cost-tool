@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .calculations import calculate_assignment_costs
 
 
+
 DEFAULTS = {
     "salary": "150000",
     "bonus": "20000",
@@ -13,8 +14,8 @@ DEFAULTS = {
     "moving": "6000",
     "temporary": "4000",
     "exchange_rate": "1.10",
-    "swiss_tax": "0",
-    "swiss_social_security": "0",
+    "swiss_tax": "31076",
+    "swiss_social_security": "10640.20",
 }
 
 

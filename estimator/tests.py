@@ -121,3 +121,49 @@ class CalculationTests(SimpleTestCase):
             result["years"][0]["taxable_relocation_gbp"],
             Decimal("2000.00"),
         )
+
+    
+    def test_assignment_total_matches_both_years(self):
+        values = {
+            "salary": Decimal("150000"),
+            "bonus": Decimal("20000"),
+            "housing": Decimal("3000"),
+            "relocation": Decimal("5000"),
+            "moving": Decimal("6000"),
+            "temporary": Decimal("4000"),
+            "exchange_rate": Decimal("1.10"),
+            "swiss_tax": Decimal("31076"),
+            "swiss_social_security": Decimal("10640.20"),
+        }
+
+        result = calculate_assignment_costs(values)
+
+        expected_total = sum(
+            year["total_cost_gbp"] for year in result["years"]
+        )
+
+        self.assertEqual(
+            result["total_assignment_cost_gbp"],
+            expected_total,
+        )
+
+    def test_year_two_has_no_relocation_costs(self):
+        values = {
+            "salary": Decimal("150000"),
+            "bonus": Decimal("20000"),
+            "housing": Decimal("3000"),
+            "relocation": Decimal("5000"),
+            "moving": Decimal("6000"),
+            "temporary": Decimal("4000"),
+            "exchange_rate": Decimal("1.10"),
+            "swiss_tax": Decimal("31076"),
+            "swiss_social_security": Decimal("10640.20"),
+        }
+
+        result = calculate_assignment_costs(values)
+        year_two = result["years"][1]
+
+        self.assertEqual(year_two["relocation_allowance_gbp"], Decimal("0.00"))
+        self.assertEqual(year_two["moving_gbp"], Decimal("0.00"))
+        self.assertEqual(year_two["temporary_housing_gbp"], Decimal("0.00"))
+        self.assertEqual(year_two["taxable_relocation_gbp"], Decimal("0.00"))
