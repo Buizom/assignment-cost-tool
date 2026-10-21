@@ -46,8 +46,7 @@ assignment-cost-tool/
 │   │       └── home.html
 │   ├── calculations.py
 │   ├── tests.py
-│   ├── views.py
-│   └── urls.py
+│   └── views.py
 ├── manage.py
 ├── .gitignore
 └── README.md
@@ -232,7 +231,7 @@ The application was tested locally, and the calculations and assumptions were re
 
 ## 11. Demo Video
 
-**Demo video:** Add the Loom recording link here after recording the demonstration.
+https://www.loom.com/share/9b6688331c41477f846368e565f05fdb
 
 The demonstration will cover the running application, user inputs, two-year results, key calculation functions, automated tests and important assumptions.
 
