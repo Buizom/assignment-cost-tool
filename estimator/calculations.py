@@ -248,6 +248,7 @@ def calculate_assignment_costs(values):
             ),
         })
 
+
     return {
         "years": years,
         "total_assignment_cost_gbp": money(
